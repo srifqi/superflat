@@ -1,13 +1,16 @@
 (Yet Another) Superflat Map Generator [superflat]
 =========
 
+##License
+CC 1.0 Universal (see LICENSE file)
+
 ##Feature
 - This mod will create layer-based map
 - If you're falling, you will be returned to first layer
 
 ##How To Use
-- Change Y_ORIGIN to adjust where first layer is (default: 1)
-- Change BLOCKS to adjust the layer of map (code: from bottom to top)
+- Change ```Y_ORIGIN``` to adjust where first layer is (default: 1)
+- Change ```BLOCKS``` to adjust the layer of map (code: from bottom to top)
 
 ##Examples for BLOCKS code
 ###Default superflat
