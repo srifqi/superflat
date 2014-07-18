@@ -22,11 +22,12 @@ minetest.register_node("superflat:bedrock", {
 	sounds = default.node_sound_stone_defaults()
 })
 
+local pBLOCKS = sflat.parsetext(sflat.BLOCKS)
+
 minetest.register_on_generated(function(minp, maxp, seed)
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
 	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
 	local data = vm:get_data()
-	local pBLOCKS = sflat.parsetext(sflat.BLOCKS)
 	if minp.y > sflat.Y_ORIGIN + #pBLOCKS then
 		return
 	end
