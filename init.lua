@@ -33,12 +33,10 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	end
 	for z = minp.z, maxp.z do
 	for x = minp.x, maxp.x do
-		local yy = 1
 	for y = minp.y, maxp.y do
 		local vi = area:index(x, y, z)
 		if (y >= sflat.Y_ORIGIN and y < sflat.Y_ORIGIN + #pBLOCKS) then
-			data[vi] = minetest.get_content_id(pBLOCKS[yy])
-			yy = yy + 1
+			data[vi] = minetest.get_content_id(pBLOCKS[y - sflat.Y_ORIGIN + 1])
 		else
 			data[vi] = minetest.get_content_id("air")
 		end
