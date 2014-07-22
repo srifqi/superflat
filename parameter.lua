@@ -8,7 +8,10 @@ sflat.BLOCKS = "superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1"
 
 --[[
 
---- DEFAULT SUPERFLAT
+-- EXAMPLE
+	"node:name_bottom=amount,node:name_top=amount"
+
+-- DEFAULT SUPERFLAT
 	"superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1"
 
 -- SUPERFLAT: Shallow Underground
@@ -24,7 +27,7 @@ sflat.BLOCKS = "superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1"
 	"default:cobble=2,default:dirt=3,default:dirt_with_grass=1"
 
 -- DESERT SUPERFLAT
-	"superflat:bedrock,default:desert_sand=3"
+	"superflat:bedrock=1,default:desert_sand=3"
 
 -- SUPERFLAT: Farmer's dream
 	"superflat:bedrock=1,default:water_source=1,farming:soil_wet=1"
