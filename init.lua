@@ -23,6 +23,10 @@ minetest.register_node("superflat:bedrock", {
 })
 
 local pBLOCKS = sflat.parsetext(sflat.BLOCKS)
+local blockcache = {minetest.get_content_id("air")}
+for i=1,#pBLOCKS do
+	blockcache[i+1] = minetest.get_content_id(pBLOCKS[i])
+end
 
 minetest.register_on_generated(function(minp, maxp, seed)
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
@@ -36,9 +40,9 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	for y = minp.y, maxp.y do
 		local vi = area:index(x, y, z)
 		if (y >= sflat.Y_ORIGIN and y < sflat.Y_ORIGIN + #pBLOCKS) then
-			data[vi] = minetest.get_content_id(pBLOCKS[y - sflat.Y_ORIGIN + 1])
+			data[vi] = blockcache[y - sflat.Y_ORIGIN + 2]
 		else
-			data[vi] = minetest.get_content_id("air")
+			data[vi] = blockcache[1] -- air
 		end
 	end
 	end
