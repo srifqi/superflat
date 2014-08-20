@@ -17,7 +17,7 @@ end)
 -- Superflat's bedrock
 minetest.register_node("superflat:bedrock", {
 	description = "SUPERFLAT'S BEDROCK",
-	tiles ={"default_cobble.png"},
+	tiles ={"superflat_bedrock.png"},
 	groups = {unbreakable = 1, not_in_creative_inventory = 1},
 	sounds = default.node_sound_stone_defaults()
 })
