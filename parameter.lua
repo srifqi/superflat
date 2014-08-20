@@ -26,8 +26,23 @@ sflat.BLOCKS = "superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1"
 -- SUPERFLAT: Bottomless Pit
 	"default:cobble=2,default:dirt=3,default:dirt_with_grass=1"
 
+-- SUPERFLAT: Shallow Sea
+	"superflat:bedrock=1,default:dirt=3,default:water_source=5"
+
+-- SUPERFLAT: Sea
+	"superflat:bedrock=1,default:dirt=3,default:water_source=10"
+
+-- SUPERFLAT: Deep Sea
+	"superflat:bedrock=1,default:dirt=3,default:water_source=20"
+
+-- SUPERFLAT: Water World
+	"superflat:bedrock=1,default:dirt=3,default:water_source=60"
+
+-- SUPERFLAT: Beach
+	"superflat:bedrock=1,default:sand=3,default:water_source=1"
+
 -- DESERT SUPERFLAT
-	"superflat:bedrock=1,default:desert_sand=3"
+	"superflat:bedrock,default:desert_sand=3"
 
 -- SUPERFLAT: Farmer's dream
 	"superflat:bedrock=1,default:water_source=1,farming:soil_wet=1"
