@@ -1,14 +1,19 @@
 -- (Yet Another) Superflat Map Generator
--- Modify layers in parameter.lua !
+-- Modify parameter in parameter.lua !
 
 --------------------
 -- Internal stuff --
 --------------------
 
 sflat = sflat or {}
+sflat.options = {
+	biome = "",
+	decoration = false
+}
 
 dofile(minetest.get_modpath("superflat").."/parsetext.lua")
 dofile(minetest.get_modpath("superflat").."/parameter.lua")
+dofile(minetest.get_modpath("superflat").."/decoration.lua")
 
 minetest.register_on_mapgen_init(function(mgparams)
 		minetest.set_mapgen_params({mgname="singlenode"})
@@ -29,12 +34,17 @@ for i=1,#pBLOCKS do
 end
 
 minetest.register_on_generated(function(minp, maxp, seed)
-	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
-	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
-	local data = vm:get_data()
 	if minp.y > sflat.Y_ORIGIN + #pBLOCKS then
 		return
 	end
+	local t1=os.clock()
+	print("[superflat]:"..minp.x..","..minp.y..","..minp.z)
+	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
+	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
+	local data = vm:get_data()
+	local pr = PseudoRandom(seed+1)
+	
+	--generate layers
 	for z = minp.z, maxp.z do
 	for x = minp.x, maxp.x do
 	for y = minp.y, maxp.y do
@@ -47,11 +57,20 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	end
 	end
 	end
+	
+	-- if decoration enabled
+	if sflat.options.decoration == true then
+		--decorate terrain
+		sflat.decoration.generate(minp, maxp, pBLOCKS, data, area, seed, pr)
+	end
+	
 	vm:set_data(data)
 	vm:set_lighting({day=0, night=0})
 	vm:update_liquids()
 	vm:calc_lighting()
 	vm:write_to_map(data)
+	local chugent = math.ceil((os.clock() - t1)*10000)/10
+	print("[superflat]:Done in "..chugent.."ms.")
 end)
 
 sflat.bedrock_timer = 0

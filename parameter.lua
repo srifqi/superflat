@@ -1,10 +1,10 @@
-------------------------
---      Parameter     --
--- Modify layers here --
-------------------------
+---------------------------
+--       Parameter       --
+-- Modify parameter here --
+---------------------------
 
 sflat.Y_ORIGIN = 1
-sflat.BLOCKS = "superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1"
+sflat.BLOCKS = "superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1;Jungle,decoration"
 
 --[[
 

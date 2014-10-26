@@ -6,17 +6,19 @@ CC 1.0 Universal (see LICENSE file)
 
 ##Feature
 - This mod will create customizable world's layers' world
+- Decoration (optional)
 - If you're falling, you will be returned to surface
 
 ##How To Modify
 - Open parameter.lua file
 - Change `sflat.Y_ORIGIN` to adjust where first layer is (default: 1)
-- Change `sflat.BLOCKS` to adjust the layer of map (code: from bottom to top) (examples available)
+- Change `sflat.BLOCKS` to adjust the layer of map (code: from bottom to top;biome,decoration) (examples available)
 
 ##`sflat.BLOCKS` code's Built-in Preset
 |Preset|Code
 |------|----
 |Example|`"node:name_bottom=amount,node:name_top=amount"`
+|Example (+decoration)|`"node:name_bottom=amount,node:name_top=amount;Biome,decoration"`
 |Default superflat|`"superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1"`
 |Shallow Underground|`"superflat:bedrock=1,default:stone=230,default:dirt=5,default:dirt_with_grass=1"`
 |Deep Underground|`"superflat:bedrock=1,default:stone=920,default:dirt=10,default:dirt_with_grass=1"`
