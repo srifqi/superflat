@@ -4,12 +4,13 @@
 ---------------------------
 
 sflat.Y_ORIGIN = 1
-sflat.BLOCKS = "superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1;Jungle,decoration"
+sflat.BLOCKS = "superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1"
 
 --[[
 
 -- EXAMPLE
 	"node:name_bottom=amount,node:name_top=amount"
+	"node:name_bottom=amount,node:name_top=amount;Biome,decoration"
 
 -- DEFAULT SUPERFLAT
 	"superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1"
