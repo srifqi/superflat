@@ -14,11 +14,16 @@ CC 1.0 Universal (see LICENSE file)
 - Change `sflat.Y_ORIGIN` to adjust where first layer is (default: 1)
 - Change `sflat.BLOCKS` to adjust the layer of map (code: from bottom to top;biome,decoration) (examples available)
 
+###Modify existed world
+- Open superflat.txt file in your world's folder
+- Do like opening parameter.lua file
+
 ##`sflat.BLOCKS` code's Built-in Preset
 |Preset|Code
 |------|----
 |Example|`"node:name_bottom=amount,node:name_top=amount"`
 |Example (+decoration)|`"node:name_bottom=amount,node:name_top=amount;Biome,decoration"`
+|Forest|`"superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1;Forest,decoration"`
 |Default superflat|`"superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1"`
 |Shallow Underground|`"superflat:bedrock=1,default:stone=230,default:dirt=5,default:dirt_with_grass=1"`
 |Deep Underground|`"superflat:bedrock=1,default:stone=920,default:dirt=10,default:dirt_with_grass=1"`

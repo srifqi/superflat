@@ -3,17 +3,25 @@
 -- Modify parameter here --
 ---------------------------
 
+-- Only works for new world
+-- For existed world, edit superflat.txt file in your world's folder
+
+-- Start of the superflat layers
 sflat.Y_ORIGIN = 1
+-- What form is the layer
 sflat.BLOCKS = "superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1"
 
 --[[
 
 -- EXAMPLE
 	"node:name_bottom=amount,node:name_top=amount"
-	"node:name_bottom=amount,node:name_top=amount;Biome,decoration"
+	"node:name_bottom=amount,node:name_top=amount;Biome,decoration" (with decoration)
 
 -- DEFAULT SUPERFLAT
 	"superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1"
+
+-- SUPERFLAT: Forest
+	"superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1;Forest,decoration"
 
 -- SUPERFLAT: Shallow Underground
 	"superflat:bedrock=1,default:stone=230,default:dirt=5,default:dirt_with_grass=1"

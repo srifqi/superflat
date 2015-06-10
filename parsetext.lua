@@ -6,6 +6,7 @@
 
 -- Minetest library
 function string:split(sep) local sep, fields = sep or ",", {} local pattern = string.format("([^%s]+)", sep) self:gsub(pattern, function(c) fields[#fields+1] = c end) return fields end
+function file_exists(filename)local f=io.open(filename, "r");if f==nil then return false else f:close() return true	end end
 
 function sflat.parsetext(text)
 	if text:split(";")[2] ~= nil then

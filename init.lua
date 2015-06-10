@@ -27,10 +27,23 @@ minetest.register_node("superflat:bedrock", {
 	sounds = default.node_sound_stone_defaults()
 })
 
+-- Read and check if superflat.txt file exists
+-- Current bug: If no text at superflat.txt, it will not run and throw error when parsing
+if file_exists(minetest.get_worldpath()..DIR_DELIM.."superflat.txt") == true then
+	dofile(minetest.get_worldpath()..DIR_DELIM.."superflat.txt")
+else
+	local list = io.open(minetest.get_worldpath()..DIR_DELIM.."superflat.txt", "w")
+	list:write(
+		"sflat.Y_ORIGIN = "..sflat.Y_ORIGIN.."\n"..
+		"sflat.BLOCKS = \""..sflat.BLOCKS.."\""
+	)
+	list:close()
+end
+
 local pBLOCKS = sflat.parsetext(sflat.BLOCKS)
 local blockcache = {minetest.get_content_id("air")}
 for i=1,#pBLOCKS do
-	blockcache[i+1] = minetest.get_content_id(pBLOCKS[i])
+	blockcache[i] = minetest.get_content_id(pBLOCKS[i])
 end
 
 minetest.register_on_generated(function(minp, maxp, seed)
@@ -44,23 +57,23 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local data = vm:get_data()
 	local pr = PseudoRandom(seed+1)
 	
-	--generate layers
+	-- Generate layers
 	for z = minp.z, maxp.z do
 	for x = minp.x, maxp.x do
 	for y = minp.y, maxp.y do
 		local vi = area:index(x, y, z)
 		if (y >= sflat.Y_ORIGIN and y < sflat.Y_ORIGIN + #pBLOCKS) then
-			data[vi] = blockcache[y - sflat.Y_ORIGIN + 2]
+			data[vi] = blockcache[y - sflat.Y_ORIGIN + 1]
 		else
-			data[vi] = blockcache[1] -- air
+			-- air
 		end
 	end
 	end
 	end
 	
-	-- if decoration enabled
+	-- If decoration enabled
 	if sflat.options.decoration == true then
-		--decorate terrain
+		-- Decorate terrain
 		sflat.decoration.generate(minp, maxp, pBLOCKS, data, area, seed, pr)
 	end
 	
@@ -81,9 +94,9 @@ minetest.register_globalstep(function(dtime)
 		sflat.bedrock_timer = 1
 		local pos = player:getpos()
 		if pos.y < sflat.Y_ORIGIN-1 then
-			-- teleport them back to surface
+			-- Teleport them back to surface
 			player:setpos({x=pos.x,y=#pBLOCKS+2,z=pos.z})
-			-- build first layers under them
+			-- Build first layers under them
 			if minetest.env:get_node({x=pos.x,y=sflat.Y_ORIGIN,z=pos.z}).name == "air" then
 				minetest.env:set_node({x=pos.x,y=0,z=pos.z}, {name=pBLOCKS[1]})
 			end
