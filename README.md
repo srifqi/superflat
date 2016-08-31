@@ -36,3 +36,4 @@ CC 1.0 Universal (see LICENSE file)
 |Beach|`"superflat:bedrock=1,default:sand=3,default:water_source=1"`
 |Desert superflat|`"superflat:bedrock=1,default:desert_sand=3"`
 |Farmer's dream|`"superflat:bedrock=1,default:water_source=1,farming:soil_wet=1"`
+|Laaaaaaaaaaaaaaag!|`"default:gravel=1,default:sand=1,default:gravel=1"`
