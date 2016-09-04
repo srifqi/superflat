@@ -55,5 +55,8 @@ sflat.BLOCKS = "superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1"
 
 -- SUPERFLAT: Farmer's dream
 	"superflat:bedrock=1,default:water_source=1,farming:soil_wet=1"
+	
+-- SUPERFLAT: You cannot escape
+	"default:gravel=1,default:sand=1,default:gravel=1"
 
 --]]
