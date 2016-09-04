@@ -53,4 +53,6 @@ Desert superflat
 	"superflat:bedrock=1,default:desert_sand=3"
 Farmer's dream
 	"superflat:bedrock=1,default:water_source=1,farming:soil_wet=1"
+You cannot escape
+	"default:gravel=1,default:sand=1,default:gravel=1"
 
