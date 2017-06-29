@@ -19,12 +19,14 @@ function sflat.parsetext(text)
 		end
 	end
 	
-	local text, blocks = text:split(";")[1]:split(","), {}
-	for a=1, #text do
+	local text, layers = text:split(";")[1]:split(","), {}
+	local y = sflat.Y_ORIGIN
+	for a = 1, #text do
 		local node, amount = string.match(text[a], "^([^ ]+) *[=]([%d.-]+)$")
 		if node == nil then node = 'air' end
 		if amount == nil then amount = 1 end
-		for b=1, amount do blocks[#blocks+1] = node end
+		y = y + amount
+		layers[#layers + 1] = {node, minetest.get_content_id(node), y}
 	end
-	return blocks
+	return layers
 end

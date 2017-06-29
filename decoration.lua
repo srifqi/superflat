@@ -17,30 +17,22 @@ sflat.decoration.list = {}
 local gci = minetest.get_content_id
 local c_air = gci("air")
 
-function sflat.decoration.generate(minp, maxp, pBLOCKS, data, area, seed, pr)
+function sflat.decoration.generate(minp, maxp, LAYERS, data, area, seed, pr)
 	local biome = sflat.biome.list[sflat.options.biome]
 	local dcr = biome.decoration
 	for i = 1, #dcr do
-		local dcri = sflat.decoration.list[ dcr[i][1] ] or sflat.decoration.list["nil"]
-		if pBLOCKS[#pBLOCKS] == dcri.grows_on then
+		local dcri = sflat.decoration.list[dcr[i][1]] or sflat.decoration.list["nil"]
+		if LAYERS[#LAYERS][0] == dcri.grows_on then
 			for z = minp.z, maxp.z do
 			for x = minp.x, maxp.x do
-				local vi = area:index(x,sflat.Y_ORIGIN+#pBLOCKS+1,z)
+				local vi = area:index(x, LAYERS[#LAYERS][2], z)
 				local chance = dcr[i][2] or 1024
-				if
-					pr:next(1,chance) == 1 and
-					data[vi] == c_air
-				then
+				if pr:next(1, chance) == 1 and data[vi] == c_air then
 					sflat.decoration.list[dcr[i][1]].grow(
-						{
-							x=x,
-							y=sflat.Y_ORIGIN+#pBLOCKS,
-							z=z
-						},
+						{x = x, y = LAYERS[#LAYERS][2], z = z},
 						data, area, seed,
 						minp, maxp, pr
 					)
-					filled = true
 				end
 			end
 			end
@@ -61,46 +53,46 @@ end
 local sbr = sflat.biome.register
 
 sbr({
-	name = "",
+	name = ""
 })
 sbr({
-	name = "Frozen River",
+	name = "Frozen River"
 })
 sbr({
-	name = "River",
+	name = "River"
 })
 
 --listing biome from cold to hot
 
 -- cold
 sbr({
-	name = "Ice Plains",
+	name = "Ice Plains"
 })
 sbr({
 	name = "Ice Plains Spikes",
-	decoration = {{"ice_spike",40}},
+	decoration = {{"ice_spike", 40}}
 })
 -- medium/lush
 sbr({
 	name = "Flower Plains",
-	decoration = {{"flowers",20},{"grass14",80}},
+	decoration = {{"flowers", 20}, {"grass14", 80}}
 })
 sbr({
 	name = "Plains",
-	decoration = {{"grass14",40}, {"grass35",15},{"papyrus",40},{"flowers",25}},
+	decoration = {{"grass14", 40}, {"grass35", 15}, {"papyrus", 40}, {"flowers", 25}}
 })
 sbr({
 	name = "Forest",
-	decoration = {{"normal",29},{"grass14",70},{"grass35",15},{"papyrus",26},{"flowers",28}},
+	decoration = {{"normal", 29}, {"grass14", 70}, {"grass35", 15}, {"papyrus", 26}, {"flowers", 28}}
 })
 sbr({
 	name = "Jungle",
-	decoration = {{"jungle",21},{"jungle_grass",10},{"papyrus",25},{"flowers",25}},
+	decoration = {{"jungle", 21}, {"jungle_grass", 10}, {"papyrus", 25}, {"flowers", 25}}
 })
 -- hot
 sbr({
 	name = "Desert",
-	decoration = {{"cactus",60},{"dry_shrub",60}},
+	decoration = {{"cactus", 60}, {"dry_shrub", 60}}
 })
 -- Decoration definition
 local sdr = sflat.decoration.register
@@ -117,7 +109,7 @@ local c_snow = gci("default:snow")
 --add leaves function
 local function add_leaves(data, vi, c_leaf, other)
 	local other = other or c_leaf
-	if data[vi]==c_air or data[vi]==c_ignore or data[vi] == other then
+	if data[vi] == c_air or data[vi] == c_ignore or data[vi] == other then
 		data[vi] = c_leaf
 	end
 end
@@ -126,24 +118,24 @@ end
 function sflat.decoration.normal_tree(pos, data, area, seed, minp, maxp, pr)
 	local x, y, z = pos.x, pos.y, pos.z
 	local is_apple_tree = false
-	if pr:next(1,100) < 25 then
+	if pr:next(1, 100) < 25 then
 		is_apple_tree = true
 	end
-	local th = pr:next(4,5)
+	local th = pr:next(4, 5)
 	
-	for yy = y, y+th do
+	for yy = y, y + th do
 		local vi = area:index(x, yy, z)
 		data[vi] = c_tree
 	end
 	
 	local y = y + th - 1
 	
-	for xx = x-1, x+1 do
-	for yy = y-1, y+1 do
-	for zz = z-1, z+1 do
-		if area:contains(xx,yy,zz) then
+	for xx = x - 1, x + 1 do
+	for yy = y - 1, y + 1 do
+	for zz = z - 1, z + 1 do
+		if area:contains(xx, yy, zz) then
 			local vi = area:index(xx, yy, zz)
-			if pr:next(1,100) > 25 then
+			if pr:next(1, 100) > 25 then
 				add_leaves(data, vi, c_leaves)
 			else
 				if is_apple_tree == true then
@@ -158,14 +150,14 @@ function sflat.decoration.normal_tree(pos, data, area, seed, minp, maxp, pr)
 	end
 	
 	for ii = 1, 8 do
-		local xx = x + pr:next(-2,2)
-		local yy = y + pr:next(-1,2)
-		local zz = z + pr:next(-2,2)
+		local xx = x + pr:next(-2, 2)
+		local yy = y + pr:next(-1, 2)
+		local zz = z + pr:next(-2, 2)
 		for xxx = 0, 1 do
 		for yyy = 0, 1 do
 		for zzz = 0, 1 do
-			if area:contains(xx+xxx, yy+yyy, zz+zzz) then
-				local vi = area:index(xx+xxx, yy+yyy, zz+zzz)
+			if area:contains(xx + xxx, yy + yyy, zz + zzz) then
+				local vi = area:index(xx + xxx, yy + yyy, zz + zzz)
 				add_leaves(data, vi, c_leaves, c_leaves)
 			end
 		end
@@ -185,28 +177,28 @@ sdr({
 --jungle tree
 function sflat.decoration.jungle_tree(pos, data, area, seed, minp, maxp, pr)
 	local x, y, z = pos.x, pos.y, pos.z
-	local th = pr:next(8,12)
+	local th = pr:next(8, 12)
 	
-	for zz = z-1, z+1,maxp.z do
-	for xx = x-1, x+1,maxp.x do
-		if pr:next(1,3) >= 2 and area:contains(xx,y,zz) then
+	for zz = z - 1, z + 1, maxp.z do
+	for xx = x - 1, x + 1, maxp.x do
+		if pr:next(1, 3) >= 2 and area:contains(xx, y, zz) then
 			local vi = area:index(xx, y, zz)
 			add_leaves(data, vi, c_jungletree)
 		end
 	end
 	end
 	
-	for yy = y, y+th do
+	for yy = y, y + th do
 		local vi = area:index(x, yy, z)
 		data[vi] = c_jungletree
 	end
 	
 	local y = y + th - 1
 	
-	for xx = x-1, x+1 do
-	for yy = y-1, y+1 do
-	for zz = z-1, z+1 do
-		if area:contains(xx,yy,zz) then
+	for xx = x - 1, x + 1 do
+	for yy = y - 1, y + 1 do
+	for zz = z - 1, z + 1 do
+		if area:contains(xx, yy, zz) then
 			local vi = area:index(xx, yy, zz)
 			add_leaves(data, vi, c_jungleleaves)
 		end
@@ -215,14 +207,14 @@ function sflat.decoration.jungle_tree(pos, data, area, seed, minp, maxp, pr)
 	end
 	
 	for ii = 1, 30 do
-		local xx = x + pr:next(-3,3)
-		local yy = y + pr:next(-2,2)
-		local zz = z + pr:next(-3,3)
+		local xx = x + pr:next(-3, 3)
+		local yy = y + pr:next(-2, 2)
+		local zz = z + pr:next(-3, 3)
 		for xxx = 0, 1 do
 		for yyy = 0, 1 do
 		for zzz = 0, 1 do
-			if area:contains(xx+xxx, yy+yyy, zz+zzz) then
-				local vi = area:index(xx+xxx, yy+yyy, zz+zzz)
+			if area:contains(xx + xxx, yy + yyy, zz + zzz) then
+				local vi = area:index(xx + xxx, yy + yyy, zz + zzz)
 				add_leaves(data, vi, c_jungleleaves, c_jungleleaves)
 			end
 		end
@@ -273,7 +265,7 @@ sdr({
 	grows_on = "default:desert_sand",
 	grow = function(pos, data, area, seed, minp, maxp, pr)
 		local x, y, z = pos.x, pos.y, pos.z
-		for yy = math.max(y,minp.y), math.min(y+pr:next(1,4),maxp.y) do
+		for yy = math.max(y, minp.y), math.min(y + pr:next(1, 4), maxp.y) do
 			data[area:index(x, yy, z)] = c_cactus
 		end
 	end
@@ -286,7 +278,7 @@ sdr({
 	grows_on = "default:dirt_with_grass",
 	grow = function(pos, data, area, seed, minp, maxp, pr)
 		local x, y, z = pos.x, pos.y, pos.z
-		for yy = math.max(y,minp.y), math.min(y+pr:next(2,4),maxp.y) do
+		for yy = math.max(y, minp.y), math.min(y + pr:next(2, 4), maxp.y) do
 			data[area:index(x, yy, z)] = c_papyrus
 		end
 	end
@@ -315,7 +307,7 @@ sdr({
 		local x, y, z = pos.x, pos.y, pos.z
 		local vi = area:index(x, y, z)
 		if data[vi] == c_air or data[vi] == c_ignore then
-			data[vi] = c_grasses[pr:next(1,4)]
+			data[vi] = c_grasses[pr:next(1, 4)]
 		end
 	end
 })
@@ -329,7 +321,7 @@ sdr({
 		local x, y, z = pos.x, pos.y, pos.z
 		local vi = area:index(x, y, z)
 		if data[vi] == c_air or data[vi] == c_ignore then
-			data[vi] = c_grasses[pr:next(3,5)]
+			data[vi] = c_grasses[pr:next(3, 5)]
 		end
 	end
 })
@@ -352,7 +344,7 @@ sdr({
 		local x, y, z = pos.x, pos.y, pos.z
 		local vi = area:index(x, y, z)
 		if data[vi] == c_air or data[vi] == c_ignore then
-			data[vi] = c_flowers[pr:next(1,6)]
+			data[vi] = c_flowers[pr:next(1, 6)]
 		end
 	end
 })
@@ -371,28 +363,28 @@ sdr({
 			local h = pr:next(4,7)
 			for u = -1, 1 do
 			for i = -1, 1 do
-			local vi = area:index(x+u, y-1, z+i)
+			local vi = area:index(x + u, y - 1, z + i)
 			if data[vi] ~= c_air or data[vi] ~= c_ignore then
 				for o = 0, h do
-					local vi = area:index(x+u, y+o, z+i)
+					local vi = area:index(x + u, y + o, z + i)
 					data[vi] = c_ice
 				end
 			end
 			end
 			end
-			j = h + pr:next(2,3)
+			j = h + pr:next(2, 3)
 			for u = 0, 1 do
 			for i = -1, 0 do
-			local vi = area:index(x+u, y-1, z+i)
+			local vi = area:index(x + u, y - 1, z + i)
 			if data[vi] ~= c_air or data[vi] ~= c_ignore then
 				for o = h, j do
-					local vi = area:index(x+u, y+o, z+i)
+					local vi = area:index(x + u, y + o, z + i)
 					data[vi] = c_ice
 				end
 			end
 			end
 			end
-			local vi = area:index(x, y+j, z)
+			local vi = area:index(x, y + j, z)
 			data[vi] = c_ice
 		end
 	end
