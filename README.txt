@@ -1,24 +1,24 @@
 (Yet Another) Superflat Map Generator [superflat]
 =========
 
-#License
+# License
 CC 1.0 Universal (see LICENSE file)
 
-#Feature
+# Feature
 - This mod will create customizable world's layers' world
 - Decoration (optional)
 - If you're falling, you will be returned to surface
 
-#How To Modify
+# How To Modify
 - Open parameter.lua file
 - Change `sflat.Y_ORIGIN` to adjust where first layer is (default: 1)
 - Change `sflat.BLOCKS` to adjust the layer of map (code: from bottom to top;biome,decoration) (examples available)
 
-##Modify existed world
+## Modify existed world
 - Open superflat.txt file in your world's folder
 - Do like opening parameter.lua file
 
-#sflat.BLOCKS code's Built-in Preset
+# sflat.BLOCKS code's Built-in Preset
 Preset
 	Code
 
