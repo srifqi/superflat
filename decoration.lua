@@ -22,14 +22,14 @@ function sflat.decoration.generate(minp, maxp, LAYERS, data, area, seed, pr)
 	local dcr = biome.decoration
 	for i = 1, #dcr do
 		local dcri = sflat.decoration.list[dcr[i][1]] or sflat.decoration.list["nil"]
-		if LAYERS[#LAYERS][0] == dcri.grows_on then
+		if LAYERS[#LAYERS][1] == dcri.grows_on then
 			for z = minp.z, maxp.z do
 			for x = minp.x, maxp.x do
-				local vi = area:index(x, LAYERS[#LAYERS][2], z)
+				local vi = area:index(x, LAYERS[#LAYERS][3], z)
 				local chance = dcr[i][2] or 1024
 				if pr:next(1, chance) == 1 and data[vi] == c_air then
 					sflat.decoration.list[dcr[i][1]].grow(
-						{x = x, y = LAYERS[#LAYERS][2], z = z},
+						{x = x, y = LAYERS[#LAYERS][3], z = z},
 						data, area, seed,
 						minp, maxp, pr
 					)
