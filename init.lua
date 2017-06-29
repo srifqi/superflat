@@ -40,7 +40,13 @@ else
 	list:close()
 end
 
-local LAYERS = sflat.parsetext(sflat.BLOCKS)
+local LAYERS = nil
+-- Wait some time until all block loaded.
+minetest.after(1, function()
+	if LAYERS == nil then
+		LAYERS = sflat.parsetext(sflat.BLOCKS)
+	end
+end)
 
 minetest.register_on_generated(function(minp, maxp, seed)
 	if minp.y >= LAYERS[#LAYERS][3] then
@@ -99,13 +105,11 @@ minetest.register_globalstep(function(dtime)
 		local pos = player:getpos()
 		if pos.y < sflat.Y_ORIGIN - 1 then
 			-- Build first layers under them
-			if minetest.env:get_node({x = pos.x, y = sflat.Y_ORIGIN, z = pos.z}).name == "air" then
-				minetest.env:set_node({x = pos.x, y = sflat.Y_ORIGIN + 2, z = pos.z}, {name = "air"})
-				minetest.env:set_node({x = pos.x, y = sflat.Y_ORIGIN + 1, z = pos.z}, {name = "air"})
-				minetest.env:set_node({x = pos.x, y = sflat.Y_ORIGIN, z = pos.z}, {name = LAYERS[1][1]})
-			end
+			minetest.env:set_node({x = pos.x, y = LAYERS[#LAYERS][3] + 1, z = pos.z}, {name = "air"})
+			minetest.env:set_node({x = pos.x, y = LAYERS[#LAYERS][3], z = pos.z}, {name = "air"})
+			minetest.env:set_node({x = pos.x, y = LAYERS[#LAYERS][3] - 1, z = pos.z}, {name = LAYERS[#LAYERS][1]})
 			-- Teleport them back to surface
-			player:setpos({x = pos.x, y = sflat.Y_ORIGIN + 2, z = pos.z})
+			player:setpos({x = pos.x, y = LAYERS[#LAYERS][3] + 1, z = pos.z})
 		end
 	end
 end)
