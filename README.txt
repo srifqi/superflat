@@ -10,13 +10,24 @@ CC 1.0 Universal (see LICENSE file)
 - If you're falling, you will be returned to surface
 
 # How To Modify
-- Open parameter.lua file
-- Change `sflat.Y_ORIGIN` to adjust where first layer is (default: 1)
-- Change `sflat.BLOCKS` to adjust the layer of map (code: from bottom to top;biome,decoration) (examples available)
+1. Open parameter.lua file.
+2. Change `sflat.Y_ORIGIN` to adjust where first layer is (default: 1).
+3. Change `sflat.BLOCKS` to adjust the layer of map (code: from bottom to top;biome,decoration) (examples available).
 
 ## Modify existed world
-- Open superflat.txt file in your world's folder
-- Do like opening parameter.lua file
+1. Open superflat.txt file in your world's folder.
+2. Do like opening parameter.lua file.
+
+## List of biomes
+- Frozen River
+- River
+- Ice Plains
+- Ice Plains Spikes
+- Flower Plains
+- Plains
+- Forest
+- Jungle
+- Desert
 
 # sflat.BLOCKS code's Built-in Preset
 Preset
