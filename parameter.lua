@@ -3,12 +3,12 @@
 -- Modify parameter here --
 ---------------------------
 
--- Only works for new world
--- For existed world, edit superflat.txt file in your world's folder
+-- Only applies to new world
+-- For existing world, edit superflat.txt file in your world's folder.
 
 -- Start of the superflat layers
 sflat.Y_ORIGIN = 1
--- What form is the layer
+-- Composition (layer by layer)
 sflat.BLOCKS = "superflat:bedrock=1,default:dirt=2,default:dirt_with_grass=1"
 
 --[[

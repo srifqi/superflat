@@ -1,47 +1,47 @@
 -- (Yet Another) Superflat Map Generator
--- Modify parameter in parameter.lua !
+-- Modify parameter in parameter.lua!
 
 --------------------
 -- Internal stuff --
 --------------------
 
-sflat = sflat or {}
+if sflat == nil then sflat = {} end
 sflat.options = {
 	biome = "",
 	decoration = false
 }
 
-dofile(minetest.get_modpath("superflat").."/parsetext.lua")
-dofile(minetest.get_modpath("superflat").."/parameter.lua")
-dofile(minetest.get_modpath("superflat").."/decoration.lua")
+dofile(minetest.get_modpath("superflat") .. "/parsetext.lua")
+dofile(minetest.get_modpath("superflat") .. "/parameter.lua")
+dofile(minetest.get_modpath("superflat") .. "/decoration.lua")
 
 minetest.register_on_mapgen_init(function(mgparams)
-	minetest.set_mapgen_params({mgname="singlenode"})
+	minetest.set_mapgen_setting("mg_name", "singlenode", true)
 end)
 
 -- Superflat's bedrock
 minetest.register_node("superflat:bedrock", {
-	description = "SUPERFLAT'S BEDROCK",
+	description = "Superflat's Bedrock",
 	tiles = {"superflat_bedrock.png"},
 	groups = {unbreakable = 1, not_in_creative_inventory = 1},
 	sounds = default.node_sound_stone_defaults()
 })
 
 -- Read and check if superflat.txt file exists
--- Current bug: If no text at superflat.txt, it will not run and throw error when parsing
-if file_exists(minetest.get_worldpath()..DIR_DELIM.."superflat.txt") == true then
-	dofile(minetest.get_worldpath()..DIR_DELIM.."superflat.txt")
+-- If there is no text at superflat.txt, it will use default setting.
+if file_exists(minetest.get_worldpath() .. DIR_DELIM .. "superflat.txt") == true then
+	dofile(minetest.get_worldpath() .. DIR_DELIM .. "superflat.txt")
 else
-	local list = io.open(minetest.get_worldpath()..DIR_DELIM.."superflat.txt", "w")
+	local list = io.open(minetest.get_worldpath() .. DIR_DELIM .. "superflat.txt", "w")
 	list:write(
-		"sflat.Y_ORIGIN = "..sflat.Y_ORIGIN.."\n"..
-		"sflat.BLOCKS = \""..sflat.BLOCKS.."\""
+		"sflat.Y_ORIGIN = " .. sflat.Y_ORIGIN .. "\n" ..
+		"sflat.BLOCKS = \"" .. sflat.BLOCKS .. "\""
 	)
 	list:close()
 end
 
 local LAYERS = nil
--- Wait some time until all block loaded.
+-- Wait until all nodes are loaded
 minetest.after(1, function()
 	if LAYERS == nil then
 		LAYERS = sflat.parsetext(sflat.BLOCKS)
@@ -53,7 +53,6 @@ minetest.register_on_generated(function(minp, maxp, seed)
 		return
 	end
 	local t1 = os.clock()
-	print("[superflat]:"..minp.x..","..minp.y..","..minp.z)
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
 	local area = VoxelArea:new{MinEdge = emin, MaxEdge = emax}
 	local data = vm:get_data()
@@ -81,9 +80,8 @@ minetest.register_on_generated(function(minp, maxp, seed)
 		end
 	end
 	
-	-- If decoration enabled
+	-- Decorate terrain if enabled
 	if sflat.options.decoration == true then
-		-- Decorate terrain
 		sflat.decoration.generate(minp, maxp, LAYERS, data, area, seed, pr)
 	end
 	
@@ -92,24 +90,22 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	vm:update_liquids()
 	vm:calc_lighting()
 	vm:write_to_map(data)
-	local chugent = math.ceil((os.clock() - t1) * 10000) / 10
-	print("[superflat]:Done in "..chugent.."ms.")
 end)
 
 sflat.bedrock_timer = 0
 minetest.register_globalstep(function(dtime)
 	sflat.bedrock_timer = sflat.bedrock_timer - dtime
 	if sflat.bedrock_timer > 0 then return end
+	sflat.bedrock_timer = 1
 	for k,player in ipairs(minetest.get_connected_players()) do
-		sflat.bedrock_timer = 1
-		local pos = player:getpos()
+		local pos = player:get_pos()
 		if pos.y < sflat.Y_ORIGIN - 1 then
-			-- Build first layers under them
-			minetest.env:set_node({x = pos.x, y = LAYERS[#LAYERS][3] + 1, z = pos.z}, {name = "air"})
-			minetest.env:set_node({x = pos.x, y = LAYERS[#LAYERS][3], z = pos.z}, {name = "air"})
-			minetest.env:set_node({x = pos.x, y = LAYERS[#LAYERS][3] - 1, z = pos.z}, {name = LAYERS[#LAYERS][1]})
+			-- Prepare space for falling players
+			minetest.set_node({x = pos.x, y = LAYERS[#LAYERS][3] + 1, z = pos.z}, {name = "air"})
+			minetest.set_node({x = pos.x, y = LAYERS[#LAYERS][3], z = pos.z}, {name = "air"})
+			minetest.set_node({x = pos.x, y = LAYERS[#LAYERS][3] - 1, z = pos.z}, {name = LAYERS[#LAYERS][1]})
 			-- Teleport them back to surface
-			player:setpos({x = pos.x, y = LAYERS[#LAYERS][3] + 1, z = pos.z})
+			player:set_pos({x = pos.x, y = LAYERS[#LAYERS][3] - 0.5, z = pos.z})
 		end
 	end
 end)

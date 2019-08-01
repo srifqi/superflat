@@ -1,4 +1,4 @@
--- Modify parameter in parameter.lua !
+-- Modify parameter in parameter.lua!
 
 -- Decoration engine
 sflat = sflat or {}
@@ -13,9 +13,7 @@ end
 sflat.decoration = sflat.decoration or {}
 sflat.decoration.list = {}
 
---node id?
-local gci = minetest.get_content_id
-local c_air = gci("air")
+local c_air = minetest.get_content_id("air")
 
 function sflat.decoration.generate(minp, maxp, LAYERS, data, area, seed, pr)
 	local biome = sflat.biome.list[sflat.options.biome]
@@ -48,65 +46,67 @@ function sflat.decoration.register(param)
 	}
 end
 
--- Decoration Data
--- Biome definition
-local sbr = sflat.biome.register
+---------------------
+-- Decoration Data --
+---------------------
 
-sbr({
+-- Biome definition (from cold to hot)
+
+sflat.biome.register({
 	name = ""
 })
-sbr({
+sflat.biome.register({
 	name = "Frozen River"
 })
-sbr({
+sflat.biome.register({
 	name = "River"
 })
 
---listing biome from cold to hot
-
 -- cold
-sbr({
+sflat.biome.register({
 	name = "Ice Plains"
 })
-sbr({
+sflat.biome.register({
 	name = "Ice Plains Spikes",
 	decoration = {{"ice_spike", 40}}
 })
+
 -- medium/lush
-sbr({
+sflat.biome.register({
 	name = "Flower Plains",
 	decoration = {{"flowers", 20}, {"grass14", 80}}
 })
-sbr({
+sflat.biome.register({
 	name = "Plains",
 	decoration = {{"grass14", 40}, {"grass35", 15}, {"papyrus", 40}, {"flowers", 25}}
 })
-sbr({
+sflat.biome.register({
 	name = "Forest",
 	decoration = {{"normal", 29}, {"grass14", 70}, {"grass35", 15}, {"papyrus", 26}, {"flowers", 28}}
 })
-sbr({
+sflat.biome.register({
 	name = "Jungle",
 	decoration = {{"jungle", 21}, {"jungle_grass", 10}, {"papyrus", 25}, {"flowers", 25}}
 })
+
 -- hot
-sbr({
+sflat.biome.register({
 	name = "Desert",
 	decoration = {{"cactus", 60}, {"dry_shrub", 60}}
 })
--- Decoration definition
-local sdr = sflat.decoration.register
---node id?
-local c_ignore = gci("ignore")
-local c_dirt_grass = gci("default:dirt_with_grass")
-local c_tree = gci("default:tree")
-local c_leaves = gci("default:leaves")
-local c_apple = gci("default:apple")
-local c_jungletree = gci("default:jungletree")
-local c_jungleleaves = gci("default:jungleleaves")
-local c_snow = gci("default:snow")
 
---add leaves function
+-- Decoration definition
+
+local c_ignore = minetest.get_content_id("ignore")
+local c_dirt_grass = minetest.get_content_id("default:dirt_with_grass")
+local c_tree = minetest.get_content_id("default:tree")
+local c_leaves = minetest.get_content_id("default:leaves")
+local c_apple = minetest.get_content_id("default:apple")
+local c_jungletree = minetest.get_content_id("default:jungletree")
+local c_jungleleaves = minetest.get_content_id("default:jungleleaves")
+local c_snow = minetest.get_content_id("default:snow")
+
+-- leaves
 local function add_leaves(data, vi, c_leaf, other)
 	local other = other or c_leaf
 	if data[vi] == c_air or data[vi] == c_ignore or data[vi] == other then
@@ -114,7 +114,7 @@ local function add_leaves(data, vi, c_leaf, other)
 	end
 end
 
---normal tree
+-- normal tree
 function sflat.decoration.normal_tree(pos, data, area, seed, minp, maxp, pr)
 	local x, y, z = pos.x, pos.y, pos.z
 	local is_apple_tree = false
@@ -165,7 +165,7 @@ function sflat.decoration.normal_tree(pos, data, area, seed, minp, maxp, pr)
 		end
 	end
 end
-sdr({
+sflat.decoration.register({
 	name = "normal",
 	chance = 15,
 	grows_on = "default:dirt_with_grass",
@@ -174,7 +174,7 @@ sdr({
 	end
 })
 
---jungle tree
+-- jungle tree
 function sflat.decoration.jungle_tree(pos, data, area, seed, minp, maxp, pr)
 	local x, y, z = pos.x, pos.y, pos.z
 	local th = pr:next(8, 12)
@@ -222,7 +222,7 @@ function sflat.decoration.jungle_tree(pos, data, area, seed, minp, maxp, pr)
 		end
 	end
 end
-sdr({
+sflat.decoration.register({
 	name = "jungle",
 	chance = 10,
 	grows_on = "default:dirt_with_grass",
@@ -231,21 +231,21 @@ sdr({
 	end
 })
 
---decoration
+-- small plants
 
-local c_cactus = gci("default:cactus")
-local c_dry_shrub = gci("default:dry_shrub")
-local c_papyrus = gci("default:papyrus")
-local c_junglegrass  = gci("default:junglegrass")
-local c_grass_1  = gci("default:grass_1")
-local c_grass_2  = gci("default:grass_2")
-local c_grass_3  = gci("default:grass_3")
-local c_grass_4  = gci("default:grass_4")
-local c_grass_5  = gci("default:grass_5")
+local c_cactus = minetest.get_content_id("default:cactus")
+local c_dry_shrub = minetest.get_content_id("default:dry_shrub")
+local c_papyrus = minetest.get_content_id("default:papyrus")
+local c_junglegrass  = minetest.get_content_id("default:junglegrass")
+local c_grass_1 = minetest.get_content_id("default:grass_1")
+local c_grass_2 = minetest.get_content_id("default:grass_2")
+local c_grass_3 = minetest.get_content_id("default:grass_3")
+local c_grass_4 = minetest.get_content_id("default:grass_4")
+local c_grass_5 = minetest.get_content_id("default:grass_5")
 local c_grasses = {c_grass_1, c_grass_2, c_grass_3, c_grass_4, c_grass_5}
 
---dry shrub
-sdr({
+-- dry shrub
+sflat.decoration.register({
 	name = "dry_shrub",
 	chance = 50,
 	grows_on = "default:sand",
@@ -258,8 +258,8 @@ sdr({
 	end
 })
 
---cactus
-sdr({
+-- cactus
+sflat.decoration.register({
 	name = "cactus",
 	chance = 50,
 	grows_on = "default:desert_sand",
@@ -271,8 +271,8 @@ sdr({
 	end
 })
 
---papyrus
-sdr({
+-- papyrus
+sflat.decoration.register({
 	name = "papyrus",
 	chance = 10,
 	grows_on = "default:dirt_with_grass",
@@ -285,7 +285,7 @@ sdr({
 })
 
 -- jungle grass
-sdr({
+sflat.decoration.register({
 	name = "jungle_grass",
 	chance = 25,
 	grows_on = "default:dirt_with_grass",
@@ -298,8 +298,8 @@ sdr({
 	end
 })
 
---grass 1-4
-sdr({
+-- grass 1-4
+sflat.decoration.register({
 	name = "grass14",
 	chance = 60,
 	grows_on = "default:dirt_with_grass",
@@ -312,8 +312,8 @@ sdr({
 	end
 })
 
---grass 3-5
-sdr({
+-- grass 3-5
+sflat.decoration.register({
 	name = "grass35",
 	chance = 5,
 	grows_on = "default:dirt_with_grass",
@@ -327,16 +327,16 @@ sdr({
 })
 
 
-local c_dandelion_white = gci("flowers:dandelion_white")
-local c_dandelion_yellow = gci("flowers:dandelion_yellow")
-local c_geranium = gci("flowers:geranium")
-local c_rose = gci("flowers:rose")
-local c_tulip = gci("flowers:tulip")
-local c_viola = gci("flowers:viola")
+local c_dandelion_white = minetest.get_content_id("flowers:dandelion_white")
+local c_dandelion_yellow = minetest.get_content_id("flowers:dandelion_yellow")
+local c_geranium = minetest.get_content_id("flowers:geranium")
+local c_rose = minetest.get_content_id("flowers:rose")
+local c_tulip = minetest.get_content_id("flowers:tulip")
+local c_viola = minetest.get_content_id("flowers:viola")
 local c_flowers = {c_dandelion_white, c_dandelion_yellow, c_geranium, c_rose, c_tulip, c_viola}
 
---flower
-sdr({
+-- flowers
+sflat.decoration.register({
 	name = "flowers",
 	chance = 3,
 	grows_on = "default:dirt_with_grass",
@@ -349,10 +349,10 @@ sdr({
 	end
 })
 
-local c_ice = gci("default:ice")
+local c_ice = minetest.get_content_id("default:ice")
 
---ice spikes
-sdr({
+-- ice spikes
+sflat.decoration.register({
 	name = "ice_spike",
 	chance = 25,
 	grows_on = "default:dirt_with_snow",
