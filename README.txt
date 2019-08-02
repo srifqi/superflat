@@ -2,7 +2,7 @@
 =========
 
 # License
-CC 1.0 Universal (see LICENSE file)
+MIT License (code) and CC BY-SA 3.0 (media) (see LICENSE file)
 
 # Feature
 - Costumize world generation layer by layer
