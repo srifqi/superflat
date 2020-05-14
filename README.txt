@@ -14,9 +14,11 @@ MIT License (code) and CC BY-SA 3.0 (media) (see LICENSE file)
 2. Change sflat.Y_ORIGIN to adjust first layer's pos (default: 1).
 3. Change sflat.BLOCKS to adjust the composition of the world (code: layers from bottom to top;biome,decoration) (examples available).
 
+Note: If the specified node does not exist, the air node will be used.
+
 ## Modify existing world
 1. Open superflat.txt file in your world's folder.
-2. Do like opening parameter.lua file.
+2. Do like editing parameter.lua file.
 
 ## List of biomes
 - Frozen River

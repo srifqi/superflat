@@ -11,6 +11,15 @@ sflat.options = {
 	decoration = false
 }
 
+local c_air = minetest.get_content_id("air")
+function sflat.get_content_id(name)
+	local id = c_air
+	if minetest.registered_nodes[name] then
+		id = minetest.get_content_id(name)
+	end
+	return id
+end
+
 dofile(minetest.get_modpath("superflat") .. "/parsetext.lua")
 dofile(minetest.get_modpath("superflat") .. "/parameter.lua")
 dofile(minetest.get_modpath("superflat") .. "/decoration.lua")

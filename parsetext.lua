@@ -26,7 +26,7 @@ function sflat.parsetext(text)
 		if node ~= nil and amount ~= nil then
 			if amount == "" then amount = 1 end
 			y = y + amount
-			layers[#layers + 1] = {node, minetest.get_content_id(node), y}
+			layers[#layers + 1] = {node, sflat.get_content_id(node), y}
 		end
 	end
 	return layers

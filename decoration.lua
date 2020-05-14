@@ -14,6 +14,7 @@ sflat.decoration = sflat.decoration or {}
 sflat.decoration.list = {}
 
 local c_air = minetest.get_content_id("air")
+local c_ignore = minetest.get_content_id("ignore")
 
 function sflat.decoration.generate(minp, maxp, LAYERS, data, area, seed, pr)
 	local biome = sflat.biome.list[sflat.options.biome]
@@ -41,7 +42,7 @@ end
 function sflat.decoration.register(param)
 	sflat.decoration.list[param.name] = {
 		chance = param.chance or 1024,
-		grows_on = param.grows_on or "default:dirt_with_grass",
+		grows_on = param.grows_on or "air",
 		grow = param.grow or function() return nil end
 	}
 end
@@ -97,14 +98,13 @@ sflat.biome.register({
 
 -- Decoration definition
 
-local c_ignore = minetest.get_content_id("ignore")
-local c_dirt_grass = minetest.get_content_id("default:dirt_with_grass")
-local c_tree = minetest.get_content_id("default:tree")
-local c_leaves = minetest.get_content_id("default:leaves")
-local c_apple = minetest.get_content_id("default:apple")
-local c_jungletree = minetest.get_content_id("default:jungletree")
-local c_jungleleaves = minetest.get_content_id("default:jungleleaves")
-local c_snow = minetest.get_content_id("default:snow")
+local c_dirt_grass = sflat.get_content_id("default:dirt_with_grass")
+local c_tree = sflat.get_content_id("default:tree")
+local c_leaves = sflat.get_content_id("default:leaves")
+local c_apple = sflat.get_content_id("default:apple")
+local c_jungletree = sflat.get_content_id("default:jungletree")
+local c_jungleleaves = sflat.get_content_id("default:jungleleaves")
+local c_snow = sflat.get_content_id("default:snow")
 
 -- leaves
 local function add_leaves(data, vi, c_leaf, other)
@@ -233,15 +233,15 @@ sflat.decoration.register({
 
 -- small plants
 
-local c_cactus = minetest.get_content_id("default:cactus")
-local c_dry_shrub = minetest.get_content_id("default:dry_shrub")
-local c_papyrus = minetest.get_content_id("default:papyrus")
-local c_junglegrass  = minetest.get_content_id("default:junglegrass")
-local c_grass_1 = minetest.get_content_id("default:grass_1")
-local c_grass_2 = minetest.get_content_id("default:grass_2")
-local c_grass_3 = minetest.get_content_id("default:grass_3")
-local c_grass_4 = minetest.get_content_id("default:grass_4")
-local c_grass_5 = minetest.get_content_id("default:grass_5")
+local c_cactus = sflat.get_content_id("default:cactus")
+local c_dry_shrub = sflat.get_content_id("default:dry_shrub")
+local c_papyrus = sflat.get_content_id("default:papyrus")
+local c_junglegrass  = sflat.get_content_id("default:junglegrass")
+local c_grass_1 = sflat.get_content_id("default:grass_1")
+local c_grass_2 = sflat.get_content_id("default:grass_2")
+local c_grass_3 = sflat.get_content_id("default:grass_3")
+local c_grass_4 = sflat.get_content_id("default:grass_4")
+local c_grass_5 = sflat.get_content_id("default:grass_5")
 local c_grasses = {c_grass_1, c_grass_2, c_grass_3, c_grass_4, c_grass_5}
 
 -- dry shrub
@@ -327,12 +327,12 @@ sflat.decoration.register({
 })
 
 
-local c_dandelion_white = minetest.get_content_id("flowers:dandelion_white")
-local c_dandelion_yellow = minetest.get_content_id("flowers:dandelion_yellow")
-local c_geranium = minetest.get_content_id("flowers:geranium")
-local c_rose = minetest.get_content_id("flowers:rose")
-local c_tulip = minetest.get_content_id("flowers:tulip")
-local c_viola = minetest.get_content_id("flowers:viola")
+local c_dandelion_white = sflat.get_content_id("flowers:dandelion_white")
+local c_dandelion_yellow = sflat.get_content_id("flowers:dandelion_yellow")
+local c_geranium = sflat.get_content_id("flowers:geranium")
+local c_rose = sflat.get_content_id("flowers:rose")
+local c_tulip = sflat.get_content_id("flowers:tulip")
+local c_viola = sflat.get_content_id("flowers:viola")
 local c_flowers = {c_dandelion_white, c_dandelion_yellow, c_geranium, c_rose, c_tulip, c_viola}
 
 -- flowers
@@ -349,7 +349,7 @@ sflat.decoration.register({
 	end
 })
 
-local c_ice = minetest.get_content_id("default:ice")
+local c_ice = sflat.get_content_id("default:ice")
 
 -- ice spikes
 sflat.decoration.register({
