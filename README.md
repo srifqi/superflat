@@ -4,26 +4,26 @@
 # License
 MIT License (code) and CC BY-SA 3.0 (media) (see LICENSE file)
 
-# Feature
+# Features
 - Customize world generation layer by layer
 - Decoration (optional)
-- If you fall, you will be returned to surface
+- If you fall, you will be returned to the surface
 
 # How to Modify
 1. Open `parameter.lua` file.
-2. Change `sflat.Y_ORIGIN` to adjust first layer's pos (default: 1).
-3. Change `sflat.BLOCKS` to adjust the composition of the world (code: layers from bottom to top;biome,decoration) (examples available).
+2. Change `sflat.Y_ORIGIN` to adjust first layer's y-level (default: 1).
+3. Change `sflat.BLOCKS` to adjust the composition of the world (code: layers from bottom to top;biome,decoration) (examples below).
 
 Note: If the specified node does not exist, the air node will be used.
 
-## Modify existing world
+## Modify an Existing World
 1. Open `superflat.txt` file in your world's folder.
 2. Do like editing `parameter.lua` file.
 
-## List of biomes
-- Frozen River
-- River
-- Ice Plains
+## List of Biomes
+- Frozen River (no decoration for now)
+- River (no decoration for now)
+- Ice Plains (no decoration for now)
 - Ice Plains Spikes
 - Flower Plains
 - Plains
@@ -31,14 +31,15 @@ Note: If the specified node does not exist, the air node will be used.
 - Jungle
 - Desert
 
-## Presets
-|Preset|Code
+## Examples
+|Name|Code
 |------|----
 |Example|`"node:name_bottom=amount,node:name_top=amount"`
 |Example (+decoration)|`"node:name_bottom=amount,node:name_top=amount;Biome,decoration"`
 |Example (one layer thick)|`"node:a,node:b=2,node:c=3"`
 |Default|`"superflat:bedrock,default:dirt=2,default:dirt_with_grass"`
 |Forest|`"superflat:bedrock,default:dirt=2,default:dirt_with_grass;Forest,decoration"`
+|Flower Garden|`"superflat:bedrock,default:dirt=2,default:dirt_with_grass;Flower Plains,decoration"`
 |Shallow Underground|`"superflat:bedrock,default:stone=230,default:dirt=5,default:dirt_with_grass"`
 |Deep Underground|`"superflat:bedrock,default:stone=920,default:dirt=10,default:dirt_with_grass"`
 |Very Deep Underground|`"superflat:bedrock,default:stone=3680,default:dirt=15,default:dirt_with_grass"`

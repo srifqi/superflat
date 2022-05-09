@@ -1,9 +1,10 @@
 -- (Yet Another) Superflat Map Generator
--- Modify parameter in parameter.lua!
+-- MIT License (for code)
+-- Modify the parameters in parameter.lua!
 
---------------------
--- Internal stuff --
---------------------
+---------------
+-- Main Code --
+---------------
 
 if sflat == nil then sflat = {} end
 sflat.options = {
@@ -11,6 +12,8 @@ sflat.options = {
 	decoration = false
 }
 
+-- A helper function to get content ID if exists
+-- Returns air if it does not exists
 local c_air = minetest.get_content_id("air")
 function sflat.get_content_id(name)
 	local id = c_air
@@ -24,6 +27,7 @@ dofile(minetest.get_modpath("superflat") .. "/parsetext.lua")
 dofile(minetest.get_modpath("superflat") .. "/parameter.lua")
 dofile(minetest.get_modpath("superflat") .. "/decoration.lua")
 
+-- Make sure that we use singlenode mapgen
 minetest.register_on_mapgen_init(function(mgparams)
 	minetest.set_mapgen_setting("mg_name", "singlenode", true)
 end)
@@ -36,8 +40,8 @@ minetest.register_node("superflat:bedrock", {
 	sounds = default.node_sound_stone_defaults()
 })
 
--- Read and check if superflat.txt file exists
--- If there is no text at superflat.txt, it will use default setting.
+-- Read and check whether superflat.txt file exists
+-- If superflat.txt does not exist, the default setting will be used instead.
 if file_exists(minetest.get_worldpath() .. DIR_DELIM .. "superflat.txt") == true then
 	dofile(minetest.get_worldpath() .. DIR_DELIM .. "superflat.txt")
 else
@@ -49,19 +53,21 @@ else
 	list:close()
 end
 
--- Parse it once at start
+-- Parse the blocks' parameter once at start
 local LAYERS = sflat.parsetext(sflat.BLOCKS)
 -- Wait until all nodes are loaded
 minetest.after(1, function()
-	-- Then parse again
+	-- Then parse it again
 	LAYERS = sflat.parsetext(sflat.BLOCKS)
 end)
 
+-- The main code
 minetest.register_on_generated(function(minp, maxp, seed)
-	if minp.y >= LAYERS[#LAYERS][3] then
+	-- If it's above or below the layers, do nothing.
+	if minp.y >= LAYERS[#LAYERS][3] or maxp.y < sflat.Y_ORIGIN then
 		return
 	end
-	local t1 = os.clock()
+
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
 	local area = VoxelArea:new{MinEdge = emin, MaxEdge = emax}
 	local data = vm:get_data()
@@ -101,12 +107,13 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	vm:write_to_map(data)
 end)
 
+-- A timer for teleporting falling players to surface
 sflat.bedrock_timer = 0
 minetest.register_globalstep(function(dtime)
 	sflat.bedrock_timer = sflat.bedrock_timer - dtime
 	if sflat.bedrock_timer > 0 then return end
 	sflat.bedrock_timer = 1
-	for k,player in ipairs(minetest.get_connected_players()) do
+	for k, player in ipairs(minetest.get_connected_players()) do
 		local pos = player:get_pos()
 		if pos.y < sflat.Y_ORIGIN - 1 then
 			-- Prepare space for falling players

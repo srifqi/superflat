@@ -1,4 +1,4 @@
--- Modify parameter in parameter.lua!
+-- Modify the parameters in parameter.lua!
 
 -- Decoration engine
 sflat = sflat or {}

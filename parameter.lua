@@ -1,10 +1,10 @@
----------------------------
---       Parameter       --
--- Modify parameter here --
----------------------------
+--------------------------------
+--         Parameter          --
+-- Modify the parameters here --
+--------------------------------
 
--- Only applies to new world
--- For existing world, edit superflat.txt file in your world's folder.
+-- These parameters only apply to new world.
+-- For an existing world, edit superflat.txt file in its folder.
 
 -- Start of the superflat layers
 sflat.Y_ORIGIN = 1
@@ -16,13 +16,16 @@ sflat.BLOCKS = "superflat:bedrock,default:dirt=2,default:dirt_with_grass"
 -- EXAMPLE
 	"node:name_bottom=amount,node:name_top=amount"
 	"node:name_bottom=amount,node:name_top=amount;Biome,decoration" (with decoration)
-	"node:a,node:b=2,node:c=3" (if no amount, it is one block thick)
+	"node:a,node:b=2,node:c=3" (no amount means one block thick)
 
 -- SUPERFLAT: Default
 	"superflat:bedrock,default:dirt=2,default:dirt_with_grass"
 
 -- SUPERFLAT: Forest
 	"superflat:bedrock,default:dirt=2,default:dirt_with_grass;Forest,decoration"
+
+-- SUPERFLAT: Flower Garden
+	"superflat:bedrock,default:dirt=2,default:dirt_with_grass;Flower Plains,decoration"
 
 -- SUPERFLAT: Shallow Underground
 	"superflat:bedrock,default:stone=230,default:dirt=5,default:dirt_with_grass"
