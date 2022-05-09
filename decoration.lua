@@ -327,13 +327,18 @@ sflat.decoration.register({
 })
 
 
+local c_chrysanthemum_green = sflat.get_content_id("flowers:chrysanthemum_green")
 local c_dandelion_white = sflat.get_content_id("flowers:dandelion_white")
 local c_dandelion_yellow = sflat.get_content_id("flowers:dandelion_yellow")
 local c_geranium = sflat.get_content_id("flowers:geranium")
 local c_rose = sflat.get_content_id("flowers:rose")
 local c_tulip = sflat.get_content_id("flowers:tulip")
+local c_tulip_black = sflat.get_content_id("flowers:tulip_black")
 local c_viola = sflat.get_content_id("flowers:viola")
-local c_flowers = {c_dandelion_white, c_dandelion_yellow, c_geranium, c_rose, c_tulip, c_viola}
+local c_flowers = {
+	c_chrysanthemum_green, c_dandelion_white, c_dandelion_yellow, c_geranium,
+	c_rose, c_tulip, c_tulip_black, c_viola, c_flowers
+}
 
 -- flowers
 sflat.decoration.register({
