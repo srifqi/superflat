@@ -49,12 +49,12 @@ else
 	list:close()
 end
 
-local LAYERS = nil
+-- Parse it once at start
+local LAYERS = sflat.parsetext(sflat.BLOCKS)
 -- Wait until all nodes are loaded
 minetest.after(1, function()
-	if LAYERS == nil then
-		LAYERS = sflat.parsetext(sflat.BLOCKS)
-	end
+	-- Then parse again
+	LAYERS = sflat.parsetext(sflat.BLOCKS)
 end)
 
 minetest.register_on_generated(function(minp, maxp, seed)
