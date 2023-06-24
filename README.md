@@ -21,6 +21,7 @@ Note: If the specified node does not exist, the air node will be used.
 2. Do like editing `parameter.lua` file.
 
 ## List of Biomes
+Note: Biome decorations are only available with the `default` mod (Minetest Game or its derivatives).
 - Frozen River (no decoration for now)
 - River (no decoration for now)
 - Ice Plains (no decoration for now)

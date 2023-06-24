@@ -16,11 +16,10 @@ sflat.options = {
 -- Returns air if it does not exists
 local c_air = minetest.get_content_id("air")
 function sflat.get_content_id(name)
-	local id = c_air
 	if minetest.registered_nodes[name] then
-		id = minetest.get_content_id(name)
+		return minetest.get_content_id(name)
 	end
-	return id
+	return c_air
 end
 
 dofile(minetest.get_modpath("superflat") .. "/parsetext.lua")
@@ -33,11 +32,15 @@ minetest.register_on_mapgen_init(function(mgparams)
 end)
 
 -- Superflat's bedrock
+local bedrock_sound = nil
+if default and default.node_sound_stone_defaults then
+	bedrock_sound = default.node_sound_stone_defaults()
+end
 minetest.register_node("superflat:bedrock", {
 	description = "Superflat's Bedrock",
 	tiles = {"superflat_bedrock.png"},
 	groups = {unbreakable = 1, not_in_creative_inventory = 1},
-	sounds = default.node_sound_stone_defaults()
+	sounds = bedrock_sound
 })
 
 -- Read and check whether superflat.txt file exists
@@ -122,7 +125,9 @@ minetest.register_globalstep(function(dtime)
 			-- Prepare space for falling players
 			minetest.set_node({x = pos.x, y = LAYERS[#LAYERS][3] + 1, z = pos.z}, {name = "air"})
 			minetest.set_node({x = pos.x, y = LAYERS[#LAYERS][3], z = pos.z}, {name = "air"})
-			minetest.set_node({x = pos.x, y = LAYERS[#LAYERS][3] - 1, z = pos.z}, {name = LAYERS[#LAYERS][1]})
+			if minetest.registered_nodes[LAYERS[#LAYERS][1]] then
+				minetest.set_node({x = pos.x, y = LAYERS[#LAYERS][3] - 1, z = pos.z}, {name = LAYERS[#LAYERS][1]})
+			end
 			-- Teleport them back to surface
 			player:set_pos({x = pos.x, y = LAYERS[#LAYERS][3] - 0.5, z = pos.z})
 		end

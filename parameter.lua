@@ -17,6 +17,7 @@ sflat.BLOCKS = "superflat:bedrock,default:dirt=2,default:dirt_with_grass"
 	"node:name_bottom=amount,node:name_top=amount"
 	"node:name_bottom=amount,node:name_top=amount;Biome,decoration" (with decoration)
 	"node:a,node:b=2,node:c=3" (no amount means one block thick)
+	Note: Biome decorations are only available with the `default` mod (Minetest Game or its derivatives).
 
 -- SUPERFLAT: Default
 	"superflat:bedrock,default:dirt=2,default:dirt_with_grass"
