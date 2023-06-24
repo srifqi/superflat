@@ -98,13 +98,38 @@ sflat.biome.register({
 
 -- Decoration definition
 
-local c_dirt_grass = sflat.get_content_id("default:dirt_with_grass")
-local c_tree = sflat.get_content_id("default:tree")
-local c_leaves = sflat.get_content_id("default:leaves")
-local c_apple = sflat.get_content_id("default:apple")
-local c_jungletree = sflat.get_content_id("default:jungletree")
-local c_jungleleaves = sflat.get_content_id("default:jungleleaves")
-local c_snow = sflat.get_content_id("default:snow")
+-- blocks' name
+local n_dirt_grass = "air"
+local n_sand = "air"
+local n_desert_sand = "air"
+
+-- Minetest Game
+if sflat.game_id == "minetest_game" then
+	n_dirt_grass = "default:dirt_with_grass"
+	n_sand = "default:sand"
+	n_desert_sand = "default:desert_sand"
+end
+
+-- blocks
+
+local c_dirt_grass = c_air
+local c_tree = c_air
+local c_leaves = c_air
+local c_apple = c_air
+local c_jungletree = c_air
+local c_jungleleaves = c_air
+local c_snow = c_air
+
+-- Minetest Game
+if sflat.game_id == "minetest_game" then
+	c_dirt_grass = sflat.get_content_id("default:dirt_with_grass")
+	c_tree = sflat.get_content_id("default:tree")
+	c_leaves = sflat.get_content_id("default:leaves")
+	c_apple = sflat.get_content_id("default:apple")
+	c_jungletree = sflat.get_content_id("default:jungletree")
+	c_jungleleaves = sflat.get_content_id("default:jungleleaves")
+	c_snow = sflat.get_content_id("default:snow")
+end
 
 -- leaves
 local function add_leaves(data, vi, c_leaf, other)
@@ -168,7 +193,7 @@ end
 sflat.decoration.register({
 	name = "normal",
 	chance = 15,
-	grows_on = "default:dirt_with_grass",
+	grows_on = n_dirt_grass,
 	grow = function(pos, data, area, seed, minp, maxp, pr)
 		sflat.decoration.normal_tree(pos, data, area, seed, minp, maxp, pr)
 	end
@@ -225,7 +250,7 @@ end
 sflat.decoration.register({
 	name = "jungle",
 	chance = 10,
-	grows_on = "default:dirt_with_grass",
+	grows_on = n_dirt_grass,
 	grow = function(pos, data, area, seed, minp, maxp, pr)
 		sflat.decoration.jungle_tree(pos, data, area, seed, minp, maxp, pr)
 	end
@@ -233,22 +258,36 @@ sflat.decoration.register({
 
 -- small plants
 
-local c_cactus = sflat.get_content_id("default:cactus")
-local c_dry_shrub = sflat.get_content_id("default:dry_shrub")
-local c_papyrus = sflat.get_content_id("default:papyrus")
-local c_junglegrass  = sflat.get_content_id("default:junglegrass")
-local c_grass_1 = sflat.get_content_id("default:grass_1")
-local c_grass_2 = sflat.get_content_id("default:grass_2")
-local c_grass_3 = sflat.get_content_id("default:grass_3")
-local c_grass_4 = sflat.get_content_id("default:grass_4")
-local c_grass_5 = sflat.get_content_id("default:grass_5")
+local c_cactus = c_air
+local c_dry_shrub = c_air
+local c_papyrus = c_air
+local c_junglegrass  = c_air
+local c_grass_1 = c_air
+local c_grass_2 = c_air
+local c_grass_3 = c_air
+local c_grass_4 = c_air
+local c_grass_5 = c_air
+
+-- Minetest Game
+if sflat.game_id == "minetest_game" then
+	c_cactus = sflat.get_content_id("default:cactus")
+	c_dry_shrub = sflat.get_content_id("default:dry_shrub")
+	c_papyrus = sflat.get_content_id("default:papyrus")
+	c_junglegrass  = sflat.get_content_id("default:junglegrass")
+	c_grass_1 = sflat.get_content_id("default:grass_1")
+	c_grass_2 = sflat.get_content_id("default:grass_2")
+	c_grass_3 = sflat.get_content_id("default:grass_3")
+	c_grass_4 = sflat.get_content_id("default:grass_4")
+	c_grass_5 = sflat.get_content_id("default:grass_5")
+end
+
 local c_grasses = {c_grass_1, c_grass_2, c_grass_3, c_grass_4, c_grass_5}
 
 -- dry shrub
 sflat.decoration.register({
 	name = "dry_shrub",
 	chance = 50,
-	grows_on = "default:sand",
+	grows_on = n_sand,
 	grow = function(pos, data, area, seed, minp, maxp, pr)
 		local x, y, z = pos.x, pos.y, pos.z
 		local vi = area:index(x, y, z)
@@ -262,7 +301,7 @@ sflat.decoration.register({
 sflat.decoration.register({
 	name = "cactus",
 	chance = 50,
-	grows_on = "default:desert_sand",
+	grows_on = n_desert_sand,
 	grow = function(pos, data, area, seed, minp, maxp, pr)
 		local x, y, z = pos.x, pos.y, pos.z
 		for yy = math.max(y, minp.y), math.min(y + pr:next(1, 4), maxp.y) do
@@ -275,7 +314,7 @@ sflat.decoration.register({
 sflat.decoration.register({
 	name = "papyrus",
 	chance = 10,
-	grows_on = "default:dirt_with_grass",
+	grows_on = n_dirt_grass,
 	grow = function(pos, data, area, seed, minp, maxp, pr)
 		local x, y, z = pos.x, pos.y, pos.z
 		for yy = math.max(y, minp.y), math.min(y + pr:next(2, 4), maxp.y) do
@@ -288,7 +327,7 @@ sflat.decoration.register({
 sflat.decoration.register({
 	name = "jungle_grass",
 	chance = 25,
-	grows_on = "default:dirt_with_grass",
+	grows_on = n_dirt_grass,
 	grow = function(pos, data, area, seed, minp, maxp, pr)
 		local x, y, z = pos.x, pos.y, pos.z
 		local vi = area:index(x, y, z)
@@ -302,7 +341,7 @@ sflat.decoration.register({
 sflat.decoration.register({
 	name = "grass14",
 	chance = 60,
-	grows_on = "default:dirt_with_grass",
+	grows_on = n_dirt_grass,
 	grow = function(pos, data, area, seed, minp, maxp, pr)
 		local x, y, z = pos.x, pos.y, pos.z
 		local vi = area:index(x, y, z)
@@ -316,7 +355,7 @@ sflat.decoration.register({
 sflat.decoration.register({
 	name = "grass35",
 	chance = 5,
-	grows_on = "default:dirt_with_grass",
+	grows_on = n_dirt_grass,
 	grow = function(pos, data, area, seed, minp, maxp, pr)
 		local x, y, z = pos.x, pos.y, pos.z
 		local vi = area:index(x, y, z)
@@ -326,15 +365,29 @@ sflat.decoration.register({
 	end
 })
 
+-- flowers
 
-local c_chrysanthemum_green = sflat.get_content_id("flowers:chrysanthemum_green")
-local c_dandelion_white = sflat.get_content_id("flowers:dandelion_white")
-local c_dandelion_yellow = sflat.get_content_id("flowers:dandelion_yellow")
-local c_geranium = sflat.get_content_id("flowers:geranium")
-local c_rose = sflat.get_content_id("flowers:rose")
-local c_tulip = sflat.get_content_id("flowers:tulip")
-local c_tulip_black = sflat.get_content_id("flowers:tulip_black")
-local c_viola = sflat.get_content_id("flowers:viola")
+local c_chrysanthemum_green = c_air
+local c_dandelion_white = c_air
+local c_dandelion_yellow = c_air
+local c_geranium = c_air
+local c_rose = c_air
+local c_tulip = c_air
+local c_tulip_black = c_air
+local c_viola = c_air
+
+-- Minetest Game
+if sflat.game_id == "minetest_game" then
+	c_chrysanthemum_green = sflat.get_content_id("flowers:chrysanthemum_green")
+	c_dandelion_white = sflat.get_content_id("flowers:dandelion_white")
+	c_dandelion_yellow = sflat.get_content_id("flowers:dandelion_yellow")
+	c_geranium = sflat.get_content_id("flowers:geranium")
+	c_rose = sflat.get_content_id("flowers:rose")
+	c_tulip = sflat.get_content_id("flowers:tulip")
+	c_tulip_black = sflat.get_content_id("flowers:tulip_black")
+	c_viola = sflat.get_content_id("flowers:viola")
+end
+
 local c_flowers = {
 	c_chrysanthemum_green, c_dandelion_white, c_dandelion_yellow, c_geranium,
 	c_rose, c_tulip, c_tulip_black, c_viola, c_flowers
@@ -344,7 +397,7 @@ local c_flowers = {
 sflat.decoration.register({
 	name = "flowers",
 	chance = 3,
-	grows_on = "default:dirt_with_grass",
+	grows_on = n_dirt_grass,
 	grow = function(pos, data, area, seed, minp, maxp, pr)
 		local x, y, z = pos.x, pos.y, pos.z
 		local vi = area:index(x, y, z)
@@ -354,7 +407,14 @@ sflat.decoration.register({
 	end
 })
 
-local c_ice = sflat.get_content_id("default:ice")
+-- ice
+
+local c_ice = c_air
+
+-- Minetest Game
+if sflat.game_id == "minetest_game" then
+	c_ice = sflat.get_content_id("default:ice")
+end
 
 -- ice spikes
 sflat.decoration.register({
