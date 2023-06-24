@@ -1,2 +1,15 @@
+basenodes?
 default?
 flowers?
+hades_core?
+hades_sounds?
+ks_terrain?
+loria?
+mcl_core?
+mcl_flowers?
+mcl_sounds?
+newhorizons?
+newplanet?
+nc_terrain?
+rp_default?
+void_essential?

@@ -14,6 +14,13 @@ sflat.options = {
 
 sflat.game_id = minetest.get_game_info().id
 
+-- If the current game is not supported, throw an error.
+if sflat.game_id == "cavegame" or
+		sflat.game_id == "exile" or
+		sflat.game_id == "mesecraft" then
+	error("The current game (" .. sflat.game_id .. ") does not support the superflat mod.")
+end
+
 -- A helper function to get content ID if exists
 -- Returns air if it does not exists
 local c_air = minetest.get_content_id("air")
@@ -35,11 +42,32 @@ minetest.register_on_mapgen_init(function(mgparams)
 end)
 
 -- Superflat's bedrock
-local bedrock_group = nil
+local bedrock_group = {}
 local bedrock_sound = nil
-if sflat.game_id == "minetest_game" then
+-- Minetest Game
+-- also for Asuna, Dreambuilder Game, New Planet, Survivetest, and Voxelgarden
+if sflat.game_id == "minetest_game" or
+		sflat.game_id == "asuna" or
+		sflat.game_id == "dreambuilder_game" or
+		sflat.game_id == "newplanet" or
+		sflat.game_id == "survivetest" or
+		sflat.game_id == "voxelgarden" then
 	bedrock_group = {unbreakable = 1, not_in_creative_inventory = 1}
 	bedrock_sound = default.node_sound_stone_defaults()
+-- Hades Revisited
+elseif sflat.game_id == "hades_revisited" then
+	bedrock_group = {unbreakable = 1, not_in_creative_inventory = 1}
+	bedrock_sound = hades_sounds.node_sound_stone_defaults()
+-- MineClone 2
+-- also for Mineclonia
+elseif sflat.game_id == "mineclone2" or
+		sflat.game_id == "mineclonia" then
+	bedrock_group = {creative_breakable = 1, building_block = 1, material_stone = 1}
+	bedrock_sound = mcl_sounds.node_sound_stone_defaults()
+-- Repixture
+elseif sflat.game_id == "repixture" then
+	bedrock_group = {not_in_creative_inventory = 1}
+	bedrock_sound = rp_sounds.node_sound_stone_defaults()
 end
 minetest.register_node("superflat:bedrock", {
 	description = "Superflat's Bedrock",

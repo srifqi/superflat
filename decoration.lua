@@ -56,17 +56,8 @@ end
 sflat.biome.register({
 	name = ""
 })
-sflat.biome.register({
-	name = "Frozen River"
-})
-sflat.biome.register({
-	name = "River"
-})
 
 -- cold
-sflat.biome.register({
-	name = "Ice Plains"
-})
 sflat.biome.register({
 	name = "Ice Plains Spikes",
 	decoration = {{"ice_spike", 40}}
@@ -100,35 +91,80 @@ sflat.biome.register({
 
 -- blocks' name
 local n_dirt_grass = "air"
+local n_dirt_snow = "air"
 local n_sand = "air"
 local n_desert_sand = "air"
 
+-- Development Test
+if sflat.game_id == "devtest" then
+	n_dirt_grass = "basenodes:dirt_with_grass"
+	n_dirt_snow = "basenodes:dirt_with_snow"
+	n_sand = "basenodes:sand"
+	n_desert_sand = "basenodes:desert_sand"
 -- Minetest Game
-if sflat.game_id == "minetest_game" then
+-- also for Asuna, Survivetest, and Voxelgarden
+elseif sflat.game_id == "minetest_game" or
+		sflat.game_id == "asuna" or
+		sflat.game_id == "survivetest" or
+		sflat.game_id == "voxelgarden" then
 	n_dirt_grass = "default:dirt_with_grass"
+	n_dirt_snow = "default:dirt_with_snow"
 	n_sand = "default:sand"
 	n_desert_sand = "default:desert_sand"
+-- MineClone 2
+-- also for Mineclonia
+elseif sflat.game_id == "mineclone2" or
+		sflat.game_id == "mineclonia" then
+	n_dirt_grass = "mcl_core:dirt_with_grass"
+	n_dirt_snow = "mcl_core:dirt_with_grass_snow"
+	n_sand = "mcl_core:sand"
+	n_desert_sand = "mcl_core:sand"
+-- Repixture
+elseif sflat.game_id == "repixture" then
+	n_dirt_grass = "rp_default:dirt_with_grass"
+	n_sand = "rp_default:sand"
+	n_desert_sand = "rp_default:sand"
 end
 
 -- blocks
 
-local c_dirt_grass = c_air
 local c_tree = c_air
 local c_leaves = c_air
 local c_apple = c_air
 local c_jungletree = c_air
 local c_jungleleaves = c_air
-local c_snow = c_air
 
+-- Development Test
+if sflat.game_id == "devtest" then
+	c_tree = sflat.get_content_id("basenodes:tree")
+	c_leaves = sflat.get_content_id("basenodes:leaves")
+	c_apple = sflat.get_content_id("basenodes:apple")
+	c_jungletree = sflat.get_content_id("basenodes:jungletree")
+	c_jungleleaves = sflat.get_content_id("basenodes:jungleleaves")
 -- Minetest Game
-if sflat.game_id == "minetest_game" then
-	c_dirt_grass = sflat.get_content_id("default:dirt_with_grass")
+-- also for Asuna, Survivetest, and Voxelgarden
+elseif sflat.game_id == "minetest_game" or
+		sflat.game_id == "asuna" or
+		sflat.game_id == "survivetest" or
+		sflat.game_id == "voxelgarden" then
 	c_tree = sflat.get_content_id("default:tree")
 	c_leaves = sflat.get_content_id("default:leaves")
 	c_apple = sflat.get_content_id("default:apple")
 	c_jungletree = sflat.get_content_id("default:jungletree")
 	c_jungleleaves = sflat.get_content_id("default:jungleleaves")
-	c_snow = sflat.get_content_id("default:snow")
+-- MineClone 2
+-- also for Mineclonia
+elseif sflat.game_id == "mineclone2" or
+		sflat.game_id == "mineclonia" then
+	c_tree = sflat.get_content_id("mcl_core:tree")
+	c_leaves = sflat.get_content_id("mcl_core:leaves")
+	c_jungletree = sflat.get_content_id("mcl_core:jungletree")
+	c_jungleleaves = sflat.get_content_id("mcl_core:jungleleaves")
+-- Repixture
+elseif sflat.game_id == "repixture" then
+	c_tree = sflat.get_content_id("rp_default:tree")
+	c_leaves = sflat.get_content_id("rp_default:leaves")
+	c_apple = sflat.get_content_id("rp_default:apple")
 end
 
 -- leaves
@@ -268,8 +304,15 @@ local c_grass_3 = c_air
 local c_grass_4 = c_air
 local c_grass_5 = c_air
 
+-- Development Test
+if sflat.game_id == "devtest" then
+	c_junglegrass  = sflat.get_content_id("basenodes:junglegrass")
 -- Minetest Game
-if sflat.game_id == "minetest_game" then
+-- also for Asuna, Survivetest, and Voxelgarden
+elseif sflat.game_id == "minetest_game" or
+		sflat.game_id == "asuna" or
+		sflat.game_id == "survivetest" or
+		sflat.game_id == "voxelgarden" then
 	c_cactus = sflat.get_content_id("default:cactus")
 	c_dry_shrub = sflat.get_content_id("default:dry_shrub")
 	c_papyrus = sflat.get_content_id("default:papyrus")
@@ -279,6 +322,29 @@ if sflat.game_id == "minetest_game" then
 	c_grass_3 = sflat.get_content_id("default:grass_3")
 	c_grass_4 = sflat.get_content_id("default:grass_4")
 	c_grass_5 = sflat.get_content_id("default:grass_5")
+-- MineClone 2
+-- also for Mineclonia
+elseif sflat.game_id == "mineclone2" or
+		sflat.game_id == "mineclonia" then
+	c_cactus = sflat.get_content_id("mcl_core:cactus")
+	c_dry_shrub = sflat.get_content_id("mcl_core:deadbush")
+	c_papyrus = sflat.get_content_id("mcl_core:reeds")
+	c_junglegrass  = sflat.get_content_id("mcl_flowers:fern")
+	c_grass_1 = sflat.get_content_id("mcl_flowers:tallgrass")
+	c_grass_2 = sflat.get_content_id("mcl_flowers:fern")
+	c_grass_3 = sflat.get_content_id("mcl_flowers:tallgrass")
+	c_grass_4 = sflat.get_content_id("mcl_flowers:fern")
+	c_grass_5 = sflat.get_content_id("mcl_flowers:tallgrass")
+-- Repixture
+elseif sflat.game_id == "repixture" then
+	c_cactus = sflat.get_content_id("rp_default:cactus")
+	c_dry_shrub = sflat.get_content_id("rp_default:dry_grass")
+	c_papyrus = sflat.get_content_id("rp_default:papyrus")
+	c_grass_1 = sflat.get_content_id("rp_default:grass")
+	c_grass_2 = sflat.get_content_id("rp_default:grass")
+	c_grass_3 = sflat.get_content_id("rp_default:fern")
+	c_grass_4 = sflat.get_content_id("rp_default:tall_grass")
+	c_grass_5 = sflat.get_content_id("rp_default:tall_grass")
 end
 
 local c_grasses = {c_grass_1, c_grass_2, c_grass_3, c_grass_4, c_grass_5}
@@ -288,6 +354,19 @@ sflat.decoration.register({
 	name = "dry_shrub",
 	chance = 50,
 	grows_on = n_sand,
+	grow = function(pos, data, area, seed, minp, maxp, pr)
+		local x, y, z = pos.x, pos.y, pos.z
+		local vi = area:index(x, y, z)
+		if data[vi] == c_air or data[vi] == c_ignore then
+			data[vi] = c_dry_shrub
+		end
+	end
+})
+
+sflat.decoration.register({
+	name = "dry_shrub_desert",
+	chance = 50,
+	grows_on = n_desert_sand,
 	grow = function(pos, data, area, seed, minp, maxp, pr)
 		local x, y, z = pos.x, pos.y, pos.z
 		local vi = area:index(x, y, z)
@@ -367,31 +446,51 @@ sflat.decoration.register({
 
 -- flowers
 
-local c_chrysanthemum_green = c_air
-local c_dandelion_white = c_air
-local c_dandelion_yellow = c_air
-local c_geranium = c_air
-local c_rose = c_air
-local c_tulip = c_air
-local c_tulip_black = c_air
-local c_viola = c_air
+local c_flowers = {}
 
 -- Minetest Game
-if sflat.game_id == "minetest_game" then
-	c_chrysanthemum_green = sflat.get_content_id("flowers:chrysanthemum_green")
-	c_dandelion_white = sflat.get_content_id("flowers:dandelion_white")
-	c_dandelion_yellow = sflat.get_content_id("flowers:dandelion_yellow")
-	c_geranium = sflat.get_content_id("flowers:geranium")
-	c_rose = sflat.get_content_id("flowers:rose")
-	c_tulip = sflat.get_content_id("flowers:tulip")
-	c_tulip_black = sflat.get_content_id("flowers:tulip_black")
-	c_viola = sflat.get_content_id("flowers:viola")
+-- also for Asuna and Survivetest
+if sflat.game_id == "minetest_game" or
+		sflat.game_id == "asuna" or
+		sflat.game_id == "survivetest" then
+	c_flowers = {
+		sflat.get_content_id("flowers:chrysanthemum_green"),
+		sflat.get_content_id("flowers:dandelion_white"),
+		sflat.get_content_id("flowers:dandelion_yellow"),
+		sflat.get_content_id("flowers:geranium"),
+		sflat.get_content_id("flowers:rose"),
+		sflat.get_content_id("flowers:tulip"),
+		sflat.get_content_id("flowers:tulip_black"),
+		sflat.get_content_id("flowers:viola")
+	}
+-- MineClone 2
+-- also for Mineclonia
+elseif sflat.game_id == "mineclone2" or
+		sflat.game_id == "mineclonia" then
+	c_flowers = {
+		sflat.get_content_id("mcl_flowers:allium"),
+		sflat.get_content_id("mcl_flowers:azure_bluet"),
+		sflat.get_content_id("mcl_flowers:blue_orchid"),
+		sflat.get_content_id("mcl_flowers:cornflower"),
+		sflat.get_content_id("mcl_flowers:dandelion"),
+		sflat.get_content_id("mcl_flowers:oxeye_daisy"),
+		sflat.get_content_id("mcl_flowers:poppy"),
+		sflat.get_content_id("mcl_flowers:tulip_orange"),
+		sflat.get_content_id("mcl_flowers:tulip_pink"),
+		sflat.get_content_id("mcl_flowers:tulip_red"),
+		sflat.get_content_id("mcl_flowers:tulip_white")
+	}
+-- Voxelgarden
+elseif sflat.game_id == "voxelgarden" then
+	c_flowers = {
+		sflat.get_content_id("flowers:dandelion_white"),
+		sflat.get_content_id("flowers:dandelion_yellow"),
+		sflat.get_content_id("flowers:geranium"),
+		sflat.get_content_id("flowers:rose"),
+		sflat.get_content_id("flowers:tulip"),
+		sflat.get_content_id("flowers:viola")
+	}
 end
-
-local c_flowers = {
-	c_chrysanthemum_green, c_dandelion_white, c_dandelion_yellow, c_geranium,
-	c_rose, c_tulip, c_tulip_black, c_viola, c_flowers
-}
 
 -- flowers
 sflat.decoration.register({
@@ -399,10 +498,13 @@ sflat.decoration.register({
 	chance = 3,
 	grows_on = n_dirt_grass,
 	grow = function(pos, data, area, seed, minp, maxp, pr)
+		if #c_flowers == 0 then
+			return
+		end
 		local x, y, z = pos.x, pos.y, pos.z
 		local vi = area:index(x, y, z)
 		if data[vi] == c_air or data[vi] == c_ignore then
-			data[vi] = c_flowers[pr:next(1, 6)]
+			data[vi] = c_flowers[pr:next(1, #c_flowers)]
 		end
 	end
 })
@@ -411,16 +513,28 @@ sflat.decoration.register({
 
 local c_ice = c_air
 
+-- Development Test
+if sflat.game_id == "devtest" then
+	c_ice = sflat.get_content_id("basenodes:ice")
 -- Minetest Game
-if sflat.game_id == "minetest_game" then
+-- also for Asuna, Survivetest, and Voxelgarden
+elseif sflat.game_id == "minetest_game" or
+		sflat.game_id == "asuna" or
+		sflat.game_id == "survivetest" or
+		sflat.game_id == "voxelgarden" then
 	c_ice = sflat.get_content_id("default:ice")
+-- MineClone 2
+-- also for Mineclonia
+elseif sflat.game_id == "mineclone2" or
+		sflat.game_id == "mineclonia" then
+	c_ice = sflat.get_content_id("mcl_core:ice")
 end
 
 -- ice spikes
 sflat.decoration.register({
 	name = "ice_spike",
 	chance = 25,
-	grows_on = "default:dirt_with_snow",
+	grows_on = n_dirt_snow,
 	grow = function(pos, data, area, seed, minp, maxp, pr)
 		local x, y, z = pos.x, pos.y, pos.z
 		local vi = area:index(x, y, z)
@@ -437,7 +551,7 @@ sflat.decoration.register({
 			end
 			end
 			end
-			j = h + pr:next(2, 3)
+			local j = h + pr:next(2, 3)
 			for u = 0, 1 do
 			for i = -1, 0 do
 			local vi = area:index(x + u, y - 1, z + i)
