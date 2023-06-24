@@ -75,12 +75,15 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	
 	-- Generate layers
 	local li = 1
+	while (minp.y >= LAYERS[li][3] and li < #LAYERS) do
+		li = li + 1
+	end
 	for y = minp.y, maxp.y do
-		if li > #LAYERS then
-			break
-		end
 		if y >= LAYERS[li][3] then
 			li = li + 1
+		end
+		if li > #LAYERS then
+			break
 		end
 		if (y >= sflat.Y_ORIGIN and y < LAYERS[#LAYERS][3]) then
 			local block = LAYERS[li][2]
